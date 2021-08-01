@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 
 data = pd.read_excel("data/data.xlsx")
+data.drop(inplace=True, index=data['date'].str.isnumeric().dropna().index)
 
 # data.describe(include='all')
 

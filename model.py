@@ -6,8 +6,9 @@ data = pd.read_excel("data/data.xlsx")
 
 # %%
 data.describe(include='all')
+data.drop(inplace=True, index=data['date'].str.isnumeric().dropna().index)
 # %%
-candidate_name = 'ABCDE00212'
+candidate_name = 'ABCDE00001'
 machine = data[data['candidate']==candidate_name]
 # %%
 events = machine['event'].unique()
