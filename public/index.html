@@ -34,12 +34,11 @@
         border-bottom: solid 3px #ffcd11;  
         transform: scaleX(1);  
         }
-    main,#getdata,#output{
+    main,#getdata{
           display: flex;
           flex-direction: column;
           justify-content: center;
           flex-wrap: wrap;
-          padding: 1rem; 
       }
     #cntxt{
         font-size: 1.25rem; 
@@ -75,22 +74,27 @@
             align-items: center;
         }
         #output{
-            display: none;
-            flex-direction: row;
-            align-items: center;
+           /* display: none; */
+            background-color: rgba(0, 0, 0, 0.75);
             font-size: 1.25rem;
+            max-width: 90vw;
+            align-self: center;
             border: 2px solid rgba(0, 0, 0, 0.75);
-            margin: 1rem 0;
+            border-radius: 15px;
         }
         #machine-img{
             background: url('assets/machine.png')  no-repeat center;
             background-size: contain;
-            min-height: 250px;
+            height: 250px !important;
             flex:1;
+            filter: drop-shadow(2px 4px 6px black);
         }
         .tit{
             color: #ffcd11;
             font-weight: bold;
+        }
+        .val{
+            color: #fff;
         }
         #start {
 	        cursor: pointer;
@@ -115,6 +119,9 @@
             text-align: center;
             font-weight: bold;
         }
+        span{
+            word-wrap: break-word;
+        }
   </style>
   </head>
   <body>
@@ -122,7 +129,7 @@
         <img src="assets/logo.png" >
     </div>
     <main>
-        <div>
+        <div class="m-3">
         <h1 style="font-family:'Poppins', sans-serif;">Cat Product Maintenance</h1> 
         <div id="cntxt">Predict Failure  before it occurs by our smart AI solution</div>
         </div>    
@@ -137,16 +144,24 @@
               <button id="start" onclick="getlife()"><span>Predict</span></button>
           </div>
         </div>
-        <div id="output" class="rounded">
-            <div style="flex: 1;">
-                <div><span class="tit">ID: </span> <span id="put_id">ABCDE0001</span></div>
-                <br>
-                <div><span class="tit">Estimated Failure Time : </span><span id="put_value">3000</span></div>
-                <br>
-                <div><span class="tit">Need Attention For : </span><span id="put_cause">Component1_SensorJ_exceededLimit</span> </div>
+        <div id="output" class="row flex-lg-row-reverse align-items-center my-5  justify-content-center g-5 py-5" >
+            <div class="col-10 col-sm-8 col-lg-6 mt-0">
+              <img id="machine-img" src="assets/machine.png" class="d-block mx-auto img-fluid rounded" alt="caterpillar">
             </div>
-            <div id="machine-img"></div>
-        </div>
+            <div class="col-lg-6">
+                <div><span class="tit">ID: </span> 
+                    <span  class="val" id="put_id">ABCDE0001</span>
+                </div>
+                <br>
+                <div><span class="tit">Estimated Failure Time : </span>
+                    <span  class="val" id="put_value">3000</span>
+                </div>
+                <br>
+                <div><span class="tit">Need Attention For : </span>
+                    <span  class="val" id="put_cause">Component1_SensorJ_exceededLimit</span> 
+                </div>
+            </div>
+          </div>
     </main>
     <div style="text-align: center;">
         <h3>Developed by : 
@@ -159,12 +174,14 @@
   <script>
         var url,id;
       function getlife(){
+        document.getElementById('invalid').style.display='none'
         id=document.getElementById('machineid').value;
         url="http://127.0.0.1:8000/get_machine_life/?id="+id;
       fetch(url).then((res)=>res.json()).then(data=>{
         if(Object.keys(data).length==1 || data.hasOwnProperty('error'))
             {
-                document.getElementById('invalid').innerHTML='Please enter a valid machine ID'
+                document.getElementById('invalid').innerHTML='Please enter a valid machine ID';
+                document.getElementById('invalid').style.display='block';
                 return; 
             }
         document.getElementById('output').style.display='flex';    
@@ -174,5 +191,4 @@
         });
     }
   </script>
-
 </html>
