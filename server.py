@@ -35,6 +35,10 @@ async def get_details(id):
         data_event_i = machine[machine['event'] == events[i]]
         data_event_i_svr1 = data_event_i[data_event_i['svrty_level'] == 1]
 
+        # ignore events that have less than five data entries
+        if len(data_event_i.index) < 5:
+            continue 
+
         # If severity_1 data is found, threshold = (max of severity_1_data + 5%) 
         if(len(data_event_i_svr1.index) > 0):
             threshold = data_event_i_svr1['units'].max()*1.05
