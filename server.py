@@ -22,7 +22,7 @@ async def get_details(id):
     machine = data[data['candidate']==id]
 
     # if id is not found return error
-    if (machine["date"].count()<=0):
+    if (len(machine["date"].index)<=0):
         return {"error":"invalid_id"}
 
     events = machine['event'].unique()
@@ -36,13 +36,13 @@ async def get_details(id):
         data_event_i_svr1 = data_event_i[data_event_i['svrty_level'] == 1]
 
         # If severity_1 data is found, threshold = (max of severity_1_data + 5%) 
-        if(data_event_i_svr1.size > 0):
+        if(len(data_event_i_svr1.index) > 0):
             threshold = data_event_i_svr1['units'].max()*1.05
             # print(threshold)
         else:
             # If severity_2 data is considered, threshold = (max of severity_2_data + 25%)
             data_event_i_svr2 = data_event_i[data_event_i['svrty_level'] == 2]
-            if(data_event_i_svr2.size > 0):
+            if(len(data_event_i_svr2.index) > 0):
                 threshold = data_event_i_svr2['units'].max()*1.25
                 # print(threshold)
             else:
