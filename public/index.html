@@ -74,7 +74,7 @@
             align-items: center;
         }
         #output{
-           /* display: none; */
+            display: none; 
             background-color: rgba(0, 0, 0, 0.75);
             font-size: 1.25rem;
             max-width: 90vw;
@@ -144,17 +144,17 @@
               <button id="start" onclick="getlife()"><span>Predict</span></button>
           </div>
         </div>
-        <div id="output" class="row flex-lg-row-reverse align-items-center my-5  justify-content-center g-5 py-5" >
+        <div id="output" class="row flex-lg-row-reverse align-items-center my-3  justify-content-center g-5 py-5" >
             <div class="col-10 col-sm-8 col-lg-6 mt-0">
               <img id="machine-img" src="assets/machine.png" class="d-block mx-auto img-fluid rounded" alt="caterpillar">
             </div>
             <div class="col-lg-6">
                 <div><span class="tit">ID: </span> 
-                    <span  class="val" id="put_id">ABCDE0001</span>
+                    <span  class="val" id="put_id">ABCDE00212</span>
                 </div>
                 <br>
-                <div><span class="tit">Estimated Failure Time : </span>
-                    <span  class="val" id="put_value">3000</span>
+                <div><span class="tit">Remainig Useful Time : </span>
+                    <span  class="val" id="put_value">117.56 min(s)</span>
                 </div>
                 <br>
                 <div><span class="tit">Need Attention For : </span>
@@ -174,7 +174,7 @@
   <script>
         var url,id;
       function getlife(){
-        document.getElementById('invalid').style.display='none'
+        document.getElementById('invalid').style.display='none';
         id=document.getElementById('machineid').value;
         url="http://127.0.0.1:8000/get_machine_life/?id="+id;
       fetch(url).then((res)=>res.json()).then(data=>{
@@ -187,7 +187,7 @@
         document.getElementById('output').style.display='flex';    
         document.getElementById('put_id').innerHTML=data.machine_id;
         document.getElementById('put_cause').innerHTML=data.fail_event;
-        document.getElementById('put_value').innerHTML=data.RUL;
+        document.getElementById('put_value').innerHTML=data.RUL.toFixed(2)+" min(s)";
         });
     }
   </script>
