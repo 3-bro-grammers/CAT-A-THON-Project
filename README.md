@@ -16,4 +16,4 @@ Reality ----> We have no idea what we are doing!!!
     uvicorn server:app --reload
     ```
     (Wait for few minutes till the server is started and you get an info "Application startup complete")
-4. Browse to http://
+4. Browse to http://127.0.0.1:8000/public/index.html
