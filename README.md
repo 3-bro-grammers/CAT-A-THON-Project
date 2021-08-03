@@ -17,3 +17,5 @@
     ```
     (Wait for few minutes till the server is started and you get an info "Application startup complete")
 4. Browse to http://127.0.0.1:8000/public/index.html
+
+## [Power Point Presentation](https://1drv.ms/p/s!AqPUncGS-980glNYKXXafS_Pyk3o?e=vSu4oi)
